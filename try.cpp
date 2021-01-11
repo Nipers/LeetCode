@@ -1,9 +1,7 @@
 #include<iostream>
 
-int x[10];
 int main() {
-    for (int i = 0; i < 10; i++) {
-        x[i] = 1 << i;
-    }
+    int x = 11;
+    std::cout << ((x >> 1) + (x & 1)) << std::endl;
     return 0;
 }
