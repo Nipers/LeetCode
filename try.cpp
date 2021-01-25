@@ -1,7 +1,8 @@
 #include<iostream>
-
+using namespace std;
 int main() {
-    int x = 11;
-    std::cout << ((x >> 1) + (x & 1)) << std::endl;
+    pair<int, int> x(1, 2);
+    x.first ++;
+    cout << x.first << endl;
     return 0;
 }
