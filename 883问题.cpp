@@ -5,7 +5,7 @@ bool move(int c) {//该选择能不能走
     int chosen[7] = {};//是否有改动，无改动则继承上一步的值
     switch (c) {
         case 1:// 0 -> 1
-            if (choice[step - 1] == 3 || table[1][step - 1] == 8 || table[0][step - 1] == 8 || table[0][step - 1] == 0)
+            if (table[1][step - 1] == 8 || table[0][step - 1] == 8 || table[0][step - 1] == 0)
                 return false;
             chosen[0] = chosen[1] = 1;
             table[1][step] = table[0][step - 1] + table[1][step - 1];
@@ -17,7 +17,7 @@ bool move(int c) {//该选择能不能走
                 table[0][step] = 0;
             break;
         case 2:// 0 -> 2
-            if (choice[step - 1] == 5 || table[0][step - 1] == 0 || table[2][step - 1] >= 3)
+            if (table[0][step - 1] == 0 || table[2][step - 1] >= 3)
                 return false;
             chosen[0] = chosen[2] = 1;
             table[2][step] = table[0][step - 1] + table[2][step - 1];
@@ -29,7 +29,7 @@ bool move(int c) {//该选择能不能走
                 table[0][step] = 0;
             break;
         case 3:// 1 -> 0
-            if (table[0][step - 1] == 8 || choice[step - 1] == 1 || table[1][step - 1] == 8 || table[1][step - 1] == 0)
+            if (table[0][step - 1] == 8 || table[1][step - 1] == 8 || table[1][step - 1] == 0)
                 return false;
             chosen[0] = chosen[1] = 1;
             table[0][step] = table[0][step - 1] + table[1][step - 1];
@@ -41,7 +41,7 @@ bool move(int c) {//该选择能不能走
                 table[1][step] = 0;
             break;
         case 4:// 1 -> 2
-            if (choice[step - 1] == 6 || table[1][step - 1] == 0 || table[2][step - 1] >= 3)
+            if (table[1][step - 1] == 0 || table[2][step - 1] >= 3)
                 return false;
             chosen[2] = chosen[1] = 1;
             table[2][step] = table[1][step - 1] + table[2][step - 1];
@@ -53,7 +53,7 @@ bool move(int c) {//该选择能不能走
                 table[1][step] = 0;
             break;
         case 5:// 2 -> 0
-            if (choice[step - 1] == 2 || table[2][step - 1] == 0 || table[0][step - 1] >= 8)
+            if (table[2][step - 1] == 0 || table[0][step - 1] >= 8)
                 return false;
             chosen[0] = chosen[2] = 1;
             table[0][step] = table[0][step - 1] + table[2][step - 1];
@@ -65,7 +65,7 @@ bool move(int c) {//该选择能不能走
                 table[2][step] = 0;
             break;
         case 6: // 2 -> 1
-            if (choice[step - 1] == 4 || table[2][step - 1] == 0 || table[1][step - 1] >= 8)
+            if (table[2][step - 1] == 0 || table[1][step - 1] >= 8)
                 return false;
             chosen[2] = chosen[1] = 1;
             table[1][step] = table[1][step - 1] + table[2][step - 1];
@@ -163,6 +163,12 @@ bool move(int c) {//该选择能不能走
         default:
             return false;
             break;
+    }
+    for (int i = 0; i < step; i++) {
+        if (table[0][i] == table[step][0] && table[1][i] == table[step][1] && table[2][i] == table[step][2]
+         && table[3][i] == table[step][3] && table[4][i] == table[step][4]
+         && table[5][i] == table[step][5] && table[6][i] == table[step][6])
+            return false;
     }
     for (int i = 0; i < 7; i++) {
         if (!chosen[i])
