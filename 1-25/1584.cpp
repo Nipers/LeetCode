@@ -1,4 +1,5 @@
 //prim算法：随机选取一个点进入连通集，然后将离它最近的节点入集，然后将离连通集最近的节点入集。
+//distance数组记录的是连通集中的点到该点的最近距离，只有新的点进入连通集时才有可能更新该值。
 #include <vector>
 #include <algorithm>
 using namespace std;

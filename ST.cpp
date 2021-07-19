@@ -29,7 +29,7 @@ int main() {
     pre();
     for (int j = 1; j <= logn; j++)
         for (int i = 1; i + (1 << j) - 1 <= n; i++)
-        f[i][j] = max(f[i][j - 1], f[i + (1 << (j - 1))][j - 1]);
+            f[i][j] = max(f[i][j - 1], f[i + (1 << (j - 1))][j - 1]);
     for (int i = 1; i <= m; i++) {
         int x = read(), y = read();
         int s = Logn[y - x + 1];
