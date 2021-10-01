@@ -1,10 +1,11 @@
 #include <string>
 #include <vector>
+#include <iostream>
 using namespace std;
 
-int manacheer(string input) {
+vector<int> manacheer(string input) {
     int size = input.size() * 2 + 1;
-    vector<int> ans(size, 1);//至少自己是回文的
+    vector<int> ans(size, 0);//至少自己是回文的
     char* in = new char[size];
     for (int i = 0; i < size; i += 2) {//预处理
         in[i] = '#';
@@ -34,5 +35,13 @@ int manacheer(string input) {
         }
         ans[i] = temp;
     }
+    return ans;
+}
 
+int main() {
+    vector<int> res = manacheer("AABAA");
+    for (int i = 0; i < res.size(); i++) {
+        cout << res[i] << endl;
+    }
+    return 0;
 }

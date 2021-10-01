@@ -1,75 +1,39 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include <algorithm>
 using namespace std;
-// vector<int> getNext(string source) {
-//     vector<int> next(source.size());
-//     int copyed = -1, i = 0;
-//     next[0] = -1;
-//     while (i < source.size()) {
-//         if (copyed == -1 || source[copyed] == source[i]) {
-//             copyed++, i++;
-//             next[i] = copyed;
-//         }
-//         else {
-//             copyed = next[copyed];
-//         }
-//     }
-//     return next;
-// }
-
-// int KMP(string source, string pattern) {
-//     vector<int> next = getNext(pattern);
-//     int i = 0, j = 0;
-//     while (i < source.size() && j < pattern.size()) {
-//         if (j == -1 || source[i] == pattern[j]) {
-//             i++, j++;
-//         }
-//         else {
-//             j = next[j];
-//         }
-//         if (j == pattern.size())
-//             return i - j;
-//         return -1;
-//     }
-// }
-
-vector<int> getNext(string source) {
-    vector<int> next(source.size());
-    int copyed = -1, i = 0;
-    next[0] = -1;
-    while (i < source.size()) {
-        if (copyed == -1 || source[copyed] == source[i]) {
-            copyed++, i++;
-            next[i] = copyed;
-        }
-        else {
-            copyed = next[copyed];
-        }
-    }
-    return next;
+vector<int> getNext(string pattern) {
+	vector<int> next(pattern.size());
+	next[0] = -1;
+	int i  = 0, copyed = -1;
+	while (i < (int)pattern.size() - 1) {
+		if (copyed < 0 || pattern[copyed] == pattern[i] ){
+			i++, copyed++;
+			next[i] = copyed;
+		}
+		else {
+			copyed = next[copyed];
+		}
+	}
+	return next;
 }
-
-int KMP() {
-    string pattern = "ABCDABD", source = "ABDDABCDABD";
-    vector<int> next = getNext(pattern);
-    for (int i : next) {
-        cout << i << endl;
-    }
-    int i = 0, j = 0;
-    while (i < source.size() && j < pattern.size()) {
-        if (j < 0 || source[i] == pattern[j]) {
-            i++, j++;
-        }
-        else {
-            j = next[j];
-        }
-    }
-    if (j == pattern.size())
-        return i - j;
-    return -1;
+int KMP(string source, string pattern){
+	vector<int> next = getNext(pattern);
+	int i = 0, j = 0;
+	while (i < (int)source.size() && j < (int)pattern.size()){//注意返回的是size_t，所以需要转化成int才能用
+		if (j < 0 || pattern[j] == source[i]) {
+			i++, j++;
+		}
+		else {
+			j = next[j];
+		}
+	} 
+	if (j == pattern.size()) {
+		return i - j;
+	}
+	return -1;
 }
 int main() {
-    cout << KMP();
+    cout << KMP("aaaABCDABD","ABCDABD");
+    return 0;
 }
